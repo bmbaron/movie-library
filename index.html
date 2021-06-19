@@ -13,14 +13,22 @@
     </div>
     
     <div class="form-container" id="form-container">
-      <input type="text" placeholder="name">
+      <label for="name">Movie Name:</label>
+      <input type="text" id="name" placeholder="The Dark Knight">
       </input>
-      <input type="text" placeholder="genre">
+      <label for="genre">Genre:</label>
+      <select id="genre" name="genre">
+        <option value="action">action</option>
+        <option value="comedy">comedy</option>
+        <option value="romance">romance</option>
+        <option value="horror">horror</option>
+        <option value="documentary">documentary</option>
+      </select>
+      <label for="seen">Seen:</label>
+      <input type="checkbox"id="seen" name="seen">
       </input>
-      <input type="text" placeholder="seen">
-      </input>
-      <input type="submit" value="add movie">
-      </input>
+      <button type="submit" id="submit">add movie
+      </button>
       
     </div>
 
