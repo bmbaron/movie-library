@@ -17,12 +17,16 @@
 
 .movie {
   display: flex;
-  justify-content: center;
-  text-align: center;
+  flex-flow: column wrap;
+  align-items: center;
   height: 100px;
-  width: 100px;
-  background-color: red;
+  width: 200px;
+  border-radius: 10px;
+  background-color: lightblue;
   margin: 20px;
+  padding: 10px;
+  
+  font-size: 20px;
   
 }
 
@@ -33,7 +37,9 @@
   display: flex;
   flex-flow: column wrap;
   align-items: center;
-  background-color: grey;
+  background-color: lightgrey;
+  font-size: 40px;
+
 }
 
 input {
@@ -41,6 +47,15 @@ input {
  vertical-align: middle;
 
 }
+
+li {
+  overflow: hidden;
+  background-color:yellow;
+  position: relative;
+  display: inline-block;
+}
+
+
 
 
 

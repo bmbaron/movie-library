@@ -19,18 +19,35 @@ function addMovieToLibrary(movie) {
 
 
 function buildLibrary () {
+  
+  const range = document.createRange();
+  range.selectNodeContents(movieContainer);
+  range.deleteContents();
+  
   for (let i=0; i<movieArray.length; i++) {
     const movie = document.createElement('div');
     movie.classList.add('movie');
-    movie.innerText = movieArray[i].name;
-    movie.innerText += "\n " + movieArray[i].genre + "\n";
-
+    for (var key in movieArray[i]) {
+      if ((key == "name") || (key == "genre")) {
+        movie.innerHTML += key + ": " + movieArray[i][key] + "<br/>";
+      }
+    }
+    const movieSeenBox = document.createElement('li');
     const movieSeen = document.createElement('input');
     movieSeen.type = 'checkbox';
+    movieSeen.id = 'seenCheckBox';
+    const label = document.createElement('label');
+    label.htmlFor = 'seenCheckBox';
+    label.textContent = 'seen?';
+    
+    movieSeenBox.appendChild(label);
+    movieSeenBox.appendChild(movieSeen);
+
     movieSeen.checked = movieArray[i].seen;
     
+    movie.appendChild(movieSeenBox);
+
     movieContainer.appendChild(movie);
-    movieContainer.appendChild(movieSeen);
 
   }
 }
