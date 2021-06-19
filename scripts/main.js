@@ -20,13 +20,31 @@ function addMovieToLibrary(movie) {
 
 function buildLibrary () {
   
+  
   const range = document.createRange();
   range.selectNodeContents(movieContainer);
   range.deleteContents();
   
   for (let i=0; i<movieArray.length; i++) {
+    
+    console.log(movieArray[i]);
+    if (movieArray[i] !== undefined) {
+      
     const movie = document.createElement('div');
     movie.classList.add('movie');
+    
+    const deleteButton = document.createElement('button');
+    deleteButton.id = i;
+    deleteButton.classList.add('delete-button');
+    deleteButton.innerHTML = 'X';
+    deleteButton.onclick = function () {
+      //movieArray.splice(movieArray[this.id], 1);
+      delete movieArray[this.id];
+      console.log(movieArray);
+      buildLibrary();
+    };
+    
+
     for (var key in movieArray[i]) {
       if ((key == "name") || (key == "genre")) {
         movie.innerHTML += key + ": " + movieArray[i][key] + "<br/>";
@@ -46,12 +64,13 @@ function buildLibrary () {
     movieSeen.checked = movieArray[i].seen;
     
     movie.appendChild(movieSeenBox);
+    movie.appendChild(deleteButton);
 
     movieContainer.appendChild(movie);
 
   }
 }
-  
+}
   
 
   
