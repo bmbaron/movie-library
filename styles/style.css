@@ -20,10 +20,11 @@
   display: flex;
   flex-flow: column wrap;
   align-items: center;
-  height: 100px;
-  width: 200px;
+  height: 200px;
+  width: 400px;
   border-radius: 10px;
-  background-color: lightblue;
+  border: 2px black solid;
+  /*background-color: lightblue; */
   margin: 20px;
   padding: 10px;
   
@@ -74,17 +75,15 @@ input {
 
 li {
   overflow: hidden;
-  background-color:yellow;
   position: relative;
   display: inline-block;
+  font-weight:bold;
 }
+
+
 
 .delete-button {
   position: absolute;
   right: 3px;
   top: 3px;
 }
-
-
-
-
