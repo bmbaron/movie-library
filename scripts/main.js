@@ -8,7 +8,16 @@ function Movie (name, genre, seen) {
   this.seen = seen;
   this.info = function() {
     return ("name: " + name + ", genre: " + genre + ", seen: " + seen);
-  }
+  };
+  this.toggleSeen = function() {
+    if (this.seen) {
+      this.seen = false;
+    }
+    else {
+      this.seen = true;
+    }
+    
+  };
 }
 
 
@@ -45,18 +54,41 @@ function buildLibrary () {
     };
     
 
-    for (var key in movieArray[i]) {
-      if ((key == "name") || (key == "genre")) {
-        movie.innerHTML += key + ": " + movieArray[i][key] + "<br/>";
-      }
+    movie.innerHTML = movieArray[i].name.bold() + "<br/>";
+    movie.innerHTML += movieArray[i].genre.bold() + "<br/>";
+    
+    movie.style.backgroundSize = "cover";
+    switch (movieArray[i].genre) {
+      case "action":
+        movie.style.backgroundImage = "url('images/action.jpg')";
+        break;
+      case "comedy":
+        movie.style.backgroundImage = "url('images/comedy.jpg')";
+        break;
+      case "romance":
+        movie.style.backgroundImage = "url('images/romance.jpg')";
+        break;
+      case "horror":
+        movie.style.backgroundImage = "url('images/horror.jpg')";
+        break;
+      case "documentary":
+        movie.style.backgroundImage = "url('images/documentary.jpg')";
+        break;
     }
+
     const movieSeenBox = document.createElement('li');
     const movieSeen = document.createElement('input');
     movieSeen.type = 'checkbox';
-    movieSeen.id = 'seenCheckBox';
+    movieSeen.id = i;
+    movieSeen.onchange = function () {
+      
+      movieArray[this.id].toggleSeen();
+      console.log(movieArray);
+    };
+    
     const label = document.createElement('label');
     label.htmlFor = 'seenCheckBox';
-    label.textContent = 'seen?';
+    label.textContent = "seen?";
     
     movieSeenBox.appendChild(label);
     movieSeenBox.appendChild(movieSeen);
