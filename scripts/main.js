@@ -53,9 +53,17 @@ function buildLibrary () {
       buildLibrary();
     };
     
-
-    movie.innerHTML = movieArray[i].name.bold() + "<br/>";
-    movie.innerHTML += movieArray[i].genre.bold() + "<br/>";
+    const movieText = document.createElement('div');
+    movieText.id = 'movie-text';
+    
+    const genreLabel = document.createElement('div');
+    genreLabel.id = 'genre-label';
+    movie.appendChild(genreLabel);
+    
+    movie.appendChild(movieText);
+    
+    genreLabel.innerHTML = movieArray[i].genre.toUpperCase().bold();
+    movieText.innerHTML = movieArray[i].name.bold() + '<br/>';
     
     movie.style.backgroundSize = "cover";
     switch (movieArray[i].genre) {
@@ -95,7 +103,7 @@ function buildLibrary () {
 
     movieSeen.checked = movieArray[i].seen;
     
-    movie.appendChild(movieSeenBox);
+    movieText.appendChild(movieSeenBox);
     movie.appendChild(deleteButton);
 
     movieContainer.appendChild(movie);
