@@ -18,11 +18,11 @@ function Movie (name, genre, seen) {
     return ("name: " + name + ", genre: " + genre + ", seen: " + seen);
   };
   this.toggleSeen = function() {
-    if (this.seen == "true") {
-      this.seen = "false";
+    if (this.seen === true) {
+      this.seen = false;
     }
-    else {
-      this.seen = "true";
+    else if (this.seen === false) {
+      this.seen = true;
     }
     populateMovies();
   };
@@ -130,10 +130,13 @@ function buildLibrary () {
   
   const button = document.getElementById('submit');
   button.onclick = function () {
-    
      const name = document.getElementById('name');
      const genre = document.getElementById('genre');
      const seen = document.getElementById('seen');
+     if(name.value == '' || genre.value == '') {
+       alert('Please enter the movie name and genre.');
+       return;
+     }
     
      const movie = new Movie (name.value, genre.value, seen.checked);
      addMovieToLibrary(movie);
