@@ -1,6 +1,16 @@
 const movieContainer = document.getElementById('movie-container');
 
-const movieArray = [];
+let movieArray = [];
+
+
+
+window.onload = (event) => {
+  console.log(localStorage);
+  if(localStorage.hasOwnProperty('movieArray')) {
+    setMovies();
+  }
+
+};
 
 function Movie (name, genre, seen) {
   this.name = name;
@@ -10,13 +20,14 @@ function Movie (name, genre, seen) {
     return ("name: " + name + ", genre: " + genre + ", seen: " + seen);
   };
   this.toggleSeen = function() {
-    if (this.seen) {
+    if (this.seen === true) {
       this.seen = false;
     }
     else {
       this.seen = true;
     }
-    
+    populateMovies();
+    console.log("seen: " + this.seen + " local Storage: " + localStorage.movieArray);
   };
 }
 
@@ -36,8 +47,7 @@ function buildLibrary () {
   
   for (let i=0; i<movieArray.length; i++) {
     
-    console.log(movieArray[i]);
-    if (movieArray[i] !== undefined) {
+    if (movieArray[i] != null) {
       
     const movie = document.createElement('div');
     movie.classList.add('movie');
@@ -49,7 +59,7 @@ function buildLibrary () {
     deleteButton.onclick = function () {
       //movieArray.splice(movieArray[this.id], 1);
       delete movieArray[this.id];
-      console.log(movieArray);
+      populateMovies();
       buildLibrary();
     };
     
@@ -87,11 +97,13 @@ function buildLibrary () {
     const movieSeenBox = document.createElement('li');
     const movieSeen = document.createElement('input');
     movieSeen.type = 'checkbox';
-    movieSeen.id = i;
+    movieSeen.checked = movieArray[i].seen;
+    console.log(movieSeen.checked);
+
+    //movieArray[i].id = i;
     movieSeen.onchange = function () {
       
-      movieArray[this.id].toggleSeen();
-      console.log(movieArray);
+      movieArray[i].toggleSeen();
     };
     
     const label = document.createElement('label');
@@ -101,7 +113,6 @@ function buildLibrary () {
     movieSeenBox.appendChild(label);
     movieSeenBox.appendChild(movieSeen);
 
-    movieSeen.checked = movieArray[i].seen;
     
     movieText.appendChild(movieSeenBox);
     movie.appendChild(deleteButton);
@@ -125,7 +136,34 @@ function buildLibrary () {
      const movie = new Movie (name.value, genre.value, seen.checked);
      addMovieToLibrary(movie);
      buildLibrary();
-     console.log(movieArray);
+
+     populateMovies();
   };
   
+function setMovies() {
   
+//  var storedNames = JSON.parse(localStorage.getItem("movieArray"));
+ // console.log(localStorage.movieArray + "   " + storedNames);
+   let savedMovies=localStorage.getItem("movieArray");
+   savedMovies=JSON.parse(savedMovies);
+  for (let i = 0; i < savedMovies.length; i++)
+  {
+    if(savedMovies[i]) {
+      const name1 = savedMovies[i].name.toString();
+      const genre1 = savedMovies[i].genre.toString();
+      const seen1 = savedMovies[i].seen.toString();
+      const movie1 = new Movie (name1, genre1, seen1);
+      addMovieToLibrary(movie1);
+      console.log(movie1.info());
+      //console.log(movieArray[i].seen);
+    }
+  }
+  
+  buildLibrary();
+
+}
+  
+  
+function populateMovies() {
+  localStorage.setItem("movieArray", JSON.stringify(movieArray));
+}
