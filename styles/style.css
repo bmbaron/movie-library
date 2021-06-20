@@ -41,7 +41,9 @@
   border-radius: 10px;
   border: 2px black solid;
   /*background-color: lightblue; */
-  margin: 20px;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 10px;
   
   font-size: 30px;
@@ -53,23 +55,29 @@
   border-radius: 5px;
   border: 1px black solid;
   padding: 5px;
+  position: absolute;
+  top: 60px;
 }
 
 #genre-label {
+  position: absolute;
+  top: -35px;
   font-size:30px;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  color: yellow;
+  /**text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red; */
+  color: black;
 }
 
 .form-container {
 
-  width:90%;
+  width:60%;
+  color:white;
+  margin-top: 5%;
   padding-top:2%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: lightgrey;
+  background-color: black;
   font-size:20px;
   border-radius: 30px;
   padding: 30px;
