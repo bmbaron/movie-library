@@ -5,11 +5,9 @@ let movieArray = [];
 
 
 window.onload = (event) => {
-  console.log(localStorage);
-  if(localStorage.hasOwnProperty('movieArray')) {
+  if (localStorage.length > 0) {
     setMovies();
   }
-
 };
 
 function Movie (name, genre, seen) {
@@ -20,14 +18,13 @@ function Movie (name, genre, seen) {
     return ("name: " + name + ", genre: " + genre + ", seen: " + seen);
   };
   this.toggleSeen = function() {
-    if (this.seen === true) {
-      this.seen = false;
+    if (this.seen == "true") {
+      this.seen = "false";
     }
     else {
-      this.seen = true;
+      this.seen = "true";
     }
     populateMovies();
-    console.log("seen: " + this.seen + " local Storage: " + localStorage.movieArray);
   };
 }
 
@@ -58,9 +55,14 @@ function buildLibrary () {
     deleteButton.innerHTML = 'X';
     deleteButton.onclick = function () {
       //movieArray.splice(movieArray[this.id], 1);
-      delete movieArray[this.id];
+      //delete movieArray[this.id];
+      movieArray.splice(i,1);
+
       populateMovies();
       buildLibrary();
+      if(movieArray.length === 0) {
+        localStorage.clear();
+      }
     };
     
     const movieText = document.createElement('div');
@@ -98,8 +100,8 @@ function buildLibrary () {
     const movieSeen = document.createElement('input');
     movieSeen.type = 'checkbox';
     movieSeen.checked = movieArray[i].seen;
-    console.log(movieSeen.checked);
-
+    movieSeen.attributes.autocomplete = "off";
+    
     //movieArray[i].id = i;
     movieSeen.onchange = function () {
       
@@ -142,8 +144,6 @@ function buildLibrary () {
   
 function setMovies() {
   
-//  var storedNames = JSON.parse(localStorage.getItem("movieArray"));
- // console.log(localStorage.movieArray + "   " + storedNames);
    let savedMovies=localStorage.getItem("movieArray");
    savedMovies=JSON.parse(savedMovies);
   for (let i = 0; i < savedMovies.length; i++)
@@ -151,11 +151,9 @@ function setMovies() {
     if(savedMovies[i]) {
       const name1 = savedMovies[i].name.toString();
       const genre1 = savedMovies[i].genre.toString();
-      const seen1 = savedMovies[i].seen.toString();
+      const seen1 = savedMovies[i].seen;
       const movie1 = new Movie (name1, genre1, seen1);
       addMovieToLibrary(movie1);
-      console.log(movie1.info());
-      //console.log(movieArray[i].seen);
     }
   }
   
